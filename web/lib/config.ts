@@ -7,6 +7,8 @@ export const CHAIN_NAME = "GenLayer Studio";
 export const NETWORK_LABEL = "Studio";
 export const NETWORK_SLUG = "studionet";
 export const RPC_URL = "https://studio.genlayer.com/api";
+/** In the browser, reads go through the site's own /api/rpc relay (see app/api/rpc). */
+export const rpcEndpoint = () => (typeof window === "undefined" ? RPC_URL : `${window.location.origin}/api/rpc`);
 export const EXPLORER = "https://explorer-studio.genlayer.com";
 export const EXPLORER_API = `${EXPLORER}/api`;
 export const STUDIO_URL = "https://studio.genlayer.com";

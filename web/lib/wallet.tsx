@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import { CHAIN_HEX, CHAIN_ID, CHAIN_NAME, EXPLORER, RPC_URL } from "./config";
+import { CHAIN_HEX, CHAIN_ID, CHAIN_NAME, EXPLORER, RPC_URL, rpcEndpoint } from "./config";
 
 type Eip1193 = {
   request: (a: { method: string; params?: unknown[] }) => Promise<unknown>;
@@ -32,7 +32,7 @@ function eth(): Eip1193 | null {
 }
 
 async function rpc<T>(method: string, params: unknown[]): Promise<T> {
-  const res = await fetch(RPC_URL, {
+  const res = await fetch(rpcEndpoint(), {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ jsonrpc: "2.0", id: Date.now(), method, params }),

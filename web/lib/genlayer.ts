@@ -1,29 +1,32 @@
 /**
  * genlayer-js 1.1.8 wiring for GenLayer Studio (Studionet, chain 61999).
- * Reads go straight to the Studio RPC with no wallet. Writes are signed by the
+ * Reads need no wallet and go through the site's /api/rpc relay. Writes are signed by the
  * injected wallet (EIP-1193). Studio is gasless, so a write costs only the
  * value it carries.
  */
 import { createClient } from "genlayer-js";
 import { studionet } from "genlayer-js/chains";
 import { TransactionStatus } from "genlayer-js/types";
-import { CONTRACT, EXPLORER, RPC_URL } from "./config";
+import { CONTRACT, EXPLORER, rpcEndpoint } from "./config";
 import { toDesk, toPage, toQuestion, type Desk, type Page, type Question } from "./types";
 
 type Args = Parameters<ReturnType<typeof createClient>["readContract"]>[0]["args"];
 export type TxKind = "write" | "judge";
 
-/** The SDK's studionet preset, pinned to the Studio RPC and the explorer that serves it. */
-const chain = {
-  ...studionet,
-  rpcUrls: { default: { http: [RPC_URL] } },
-  blockExplorers: { default: { name: "GenLayer Studio Explorer", url: EXPLORER } },
-} as typeof studionet;
+/** The SDK's studionet preset, pointed at the site's RPC relay and the
+ * explorer that serves Studio. Wallet networks keep the real RPC URL. */
+function chain() {
+  return {
+    ...studionet,
+    rpcUrls: { default: { http: [rpcEndpoint()] } },
+    blockExplorers: { default: { name: "GenLayer Studio Explorer", url: EXPLORER } },
+  } as typeof studionet;
+}
 
 let reader: ReturnType<typeof createClient> | null = null;
 
 export function readClient() {
-  if (!reader) reader = createClient({ chain });
+  if (!reader) reader = createClient({ chain: chain() });
   return reader;
 }
 
@@ -78,7 +81,7 @@ function provider(): Eip1193 {
 }
 
 function walletClient(account: `0x${string}`) {
-  return createClient({ chain, account, provider: provider() as never });
+  return createClient({ chain: chain(), account, provider: provider() as never });
 }
 
 export interface TxRequest {
