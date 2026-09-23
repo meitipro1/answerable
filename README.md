@@ -6,12 +6,13 @@ Answerable is a paid question desk on GenLayer. Anyone can put GEN behind a publ
 
 | | |
 |---|---|
+| Live site | **https://answerable-olive.vercel.app** |
 | Network | GenLayer Studio (Studionet), chain `61999` (`0xF22F`), RPC `https://studio.genlayer.com/api`, gasless |
 | Contract | [`0x3c73941706bc393e1647a183eFC969CC3f1af7Ac`](https://explorer-studio.genlayer.com/address/0x3c73941706bc393e1647a183eFC969CC3f1af7Ac) |
 | Runtime | `py-genlayer:1jb45aa8ynh2a9c9xn3b7qqh8sm5q93hwfp7jqmwsfhh8jpz09h6`, the GenVM runner Studionet executes |
 | Rubric | v1, pinned in [`contracts/answerable.py`](contracts/answerable.py), frozen in [`contracts/FROZEN.json`](contracts/FROZEN.json) |
 | Eval | 9 of 9 tuned cases and 3 of 3 held-out cases matched under real consensus ([`eval/results.md`](eval/results.md)) |
-| Site | Next.js 16 + genlayer-js 1.1.8 in [`web/`](web); deploy on Vercel with root directory `web` |
+| Site | Next.js 16 + genlayer-js 1.1.8 in [`web/`](web), on Vercel with root directory `web` |
 
 ## How it works
 
@@ -167,7 +168,9 @@ npm run dev        # http://localhost:3000
 
 Every page handles a missing wallet, the wrong network, an empty wallet (one click to the Studio faucet), "Validators are reading", failed transactions with the contract's own message and a retry, and empty states. The timeline is built from the explorer API (`/api/transactions?address=`), with calldata decoded by `genlayer-js`.
 
-**Deploy the site on Vercel:** import the repo, set the root directory to `web`, and deploy. No private key goes on the server. The optional preview verdict in the desk composer needs `OPENROUTER_API_KEY` and `OPENROUTER_MODEL`, with `OPENROUTER_BASE_URL` not ending in `/v1` (see `web/.env.example`); without them the button stays hidden.
+In the browser, chain reads go through the site's own `/api/rpc` relay: on a deployed domain the Studio RPC's contract reads (`gen_call`) get blocked by CORS whenever the upstream answers without CORS headers, so the site calls its own origin and the relay forwards server side, caching identical reads for a few seconds. `/api/txs` does the same for the explorer, trimmed to the fields the timeline reads. Signing always stays in the visitor's wallet.
+
+**Deploy the site on Vercel:** import the repo, set the root directory to `web`, and deploy (or run `vercel deploy --prod` from the repo root; `.vercelignore` keeps the upload to the web app). No private key goes on the server. The optional preview verdict in the desk composer needs `OPENROUTER_API_KEY` and `OPENROUTER_MODEL`, with `OPENROUTER_BASE_URL` not ending in `/v1` (see `web/.env.example`); without them the button stays hidden.
 
 ## Honest limits
 
