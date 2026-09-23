@@ -1,0 +1,16 @@
+{
+  "contract": "contracts/answerable.py",
+  "sha256": "f866538538058f9f269b1371630be1c43dbb6f0e408d3eba4fff089f2c56423c",
+  "address": "0x3c73941706bc393e1647a183eFC969CC3f1af7Ac",
+  "network": "studionet",
+  "chain_id": 61999,
+  "runner": "py-genlayer:1jb45aa8ynh2a9c9xn3b7qqh8sm5q93hwfp7jqmwsfhh8jpz09h6",
+  "rubric": "v1",
+  "frozen_at": "2026-09-23T14:32:50+00:00",
+  "eval": {
+    "tuned_matching": "9/9",
+    "held_out_matching": "3/3",
+    "results": "eval/results.md"
+  },
+  "note": "Recorded once the golden eval ran. Do not redeploy or change the rubric without a new eval."
+}

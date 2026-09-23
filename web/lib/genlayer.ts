@@ -1,0 +1,154 @@
+/**
+ * genlayer-js 1.1.8 wiring for GenLayer Studio (Studionet, chain 61999).
+ * Reads go straight to the Studio RPC with no wallet. Writes are signed by the
+ * injected wallet (EIP-1193). Studio is gasless, so a write costs only the
+ * value it carries.
+ */
+import { createClient } from "genlayer-js";
+import { studionet } from "genlayer-js/chains";
+import { TransactionStatus } from "genlayer-js/types";
+import { CONTRACT, EXPLORER, RPC_URL } from "./config";
+import { toDesk, toPage, toQuestion, type Desk, type Page, type Question } from "./types";
+
+type Args = Parameters<ReturnType<typeof createClient>["readContract"]>[0]["args"];
+export type TxKind = "write" | "judge";
+
+/** The SDK's studionet preset, pinned to the Studio RPC and the explorer that serves it. */
+const chain = {
+  ...studionet,
+  rpcUrls: { default: { http: [RPC_URL] } },
+  blockExplorers: { default: { name: "GenLayer Studio Explorer", url: EXPLORER } },
+} as typeof studionet;
+
+let reader: ReturnType<typeof createClient> | null = null;
+
+export function readClient() {
+  if (!reader) reader = createClient({ chain });
+  return reader;
+}
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+function rateLimited(err: unknown): boolean {
+  const msg = String((err as Error)?.message ?? err);
+  return msg.includes("-32029") || msg.includes("Rate limit") || msg.includes("429");
+}
+
+/** Back off and retry if the RPC rate-limits us. */
+async function view(functionName: string, args: Args): Promise<unknown> {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return await readClient().readContract({ address: CONTRACT, functionName, args });
+    } catch (e) {
+      if (!rateLimited(e) || attempt >= 3) throw e;
+      await sleep(4000 * (attempt + 1));
+    }
+  }
+}
+
+export const reads = {
+  desk: async (addr: string): Promise<Desk> => toDesk(await view("get_desk", [addr])),
+  desks: async (offset = 0, limit = 50): Promise<Page<Desk>> =>
+    toPage(await view("list_desks", [offset, limit]), toDesk),
+  question: async (id: number, viewer = ""): Promise<Question> => toQuestion(await view("get_question", [id, viewer])),
+  questions: async (desk: string, status: string, offset: number, limit: number, sort: "new" | "pot" | "decided") =>
+    toPage(await view("list_questions", [desk, status, offset, limit, sort]), toQuestion),
+};
+
+/** Every desk, paging through list_desks (the contract caps pages at 50). */
+export async function allDesks(): Promise<Desk[]> {
+  const out: Desk[] = [];
+  for (let offset = 0; offset < 1000; offset += 50) {
+    const page = await reads.desks(offset, 50);
+    out.push(...page.items);
+    if (out.length >= page.total || page.items.length === 0) break;
+  }
+  return out;
+}
+
+// ------------------------------------------------------------------ writes
+
+type Eip1193 = { request: (a: { method: string; params?: unknown[] }) => Promise<unknown> };
+
+function provider(): Eip1193 {
+  const eth = (globalThis as unknown as { ethereum?: Eip1193 }).ethereum;
+  if (!eth) throw new Error("No browser wallet found. Install MetaMask or another EVM wallet.");
+  return eth;
+}
+
+function walletClient(account: `0x${string}`) {
+  return createClient({ chain, account, provider: provider() as never });
+}
+
+export interface TxRequest {
+  fn: string;
+  args: Args;
+  value?: bigint;
+  kind?: TxKind;
+}
+
+/** What a write costs on top of its value. Studio is gasless. */
+export interface Quote {
+  fee: bigint;
+}
+
+export async function quote(): Promise<Quote> {
+  return { fee: 0n };
+}
+
+export async function sendTx(account: `0x${string}`, req: TxRequest): Promise<`0x${string}`> {
+  const hash = await walletClient(account).writeContract({
+    address: CONTRACT,
+    functionName: req.fn,
+    args: req.args,
+    value: req.value ?? 0n,
+  });
+  return hash as `0x${string}`;
+}
+
+export interface TxOutcome {
+  ok: boolean;
+  status: string;
+  /** The contract's own message when it rolled back, e.g. "EXPECTED: ...". */
+  error: string;
+}
+
+type Receipt = {
+  status_name?: string;
+  result_name?: string;
+  consensus_data?: { leader_receipt?: unknown };
+};
+
+function leader(receipt: Receipt): { execution_result?: string; result?: { status?: string; payload?: unknown } } {
+  const lr = receipt.consensus_data?.leader_receipt;
+  return ((Array.isArray(lr) ? lr[0] : lr) ?? {}) as ReturnType<typeof leader>;
+}
+
+export async function waitTx(hash: `0x${string}`): Promise<TxOutcome> {
+  const receipt = (await readClient().waitForTransactionReceipt({
+    hash: hash as never,
+    status: TransactionStatus.ACCEPTED,
+    interval: 5000,
+    retries: 120,
+  })) as unknown as Receipt;
+  const l = leader(receipt);
+  const status = String(receipt.status_name ?? "");
+  const executed = !l.execution_result || l.execution_result === "SUCCESS";
+  const ok = (status === "ACCEPTED" || status === "FINALIZED") && executed;
+  const payload = l.result?.payload;
+  return {
+    ok,
+    status: `${status}${receipt.result_name ? ` / ${receipt.result_name}` : ""}`,
+    error: ok ? "" : typeof payload === "string" ? payload : l.execution_result ?? "",
+  };
+}
+
+/** Pull a readable message out of a wallet, SDK or contract error. */
+export function errorText(err: unknown): string {
+  const e = err as { shortMessage?: string; message?: string; code?: number };
+  if (e?.code === 4001) return "You rejected the request in your wallet.";
+  const msg = typeof err === "string" ? err : e?.shortMessage || e?.message || String(err);
+  const expected = msg.match(/EXPECTED: ([^"'\n]+)/);
+  if (expected) return expected[1];
+  return msg.length > 220 ? msg.slice(0, 220) + "..." : msg;
+}

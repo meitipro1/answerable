@@ -1,0 +1,28 @@
+seeding 0xe4ccB0D5e7d27a415cE072C4DA7cDEF75371Aed0
+[orrin] Q#13 now ANSWERED
+[orrin] Q#15 now ANSWERED
+[orrin] Q#16 now OPEN
+[orrin] Q#17 asked: Is the seed phrase import audited, and who did the
+[orrin] Q#17 now OPEN
+[fenwick] Q#14 attempt 1: ANSWERED (tx 0x19d9376e0c87f86ee12d3065b4fc0f4a420d130315747a5388d8ff2f3f76cb36)
+[fenwick] Q#14 now ANSWERED
+[fenwick] Q#18 asked: Who are your market making partners?
+[fenwick] Q#18 attempt 1: REFUSED (tx 0x2d0bcacacbc8d6ad2486a67e26c927ed8261d4c44aac8dfa15c555539d8a85e3)
+[fenwick] Q#18 reclaimed by b
+[fenwick] Q#18 now REFUSED
+[fenwick] Q#19 asked: Why did the borrow fee go from 0.3% to 0.5%?
+[fenwick] Q#19 attempt 1: DODGED_ONCE (tx 0xfd58759d55c7edb46f1d1228aa7089712d987d234e057d492c61ddbc0d2d8502)
+[fenwick] Q#19 now DODGED_ONCE
+[fenwick] Q#20 asked: When will withdrawals from the USDC vault reopen?
+[fenwick] Q#20 replied, left for the judge
+[fenwick] Q#20 now REPLIED
+[pellmark] Q#12 attempt 1: DODGED_ONCE (tx 0x2b594323957ef0a3d6d8cf195045ec7e2a585ccb69b1a1009be49ed1351b4b7b)
+[pellmark] Q#12 attempt 2: DODGED (tx 0x0c3b43297e9793bb1aa74d8286b7a51ba68c4460b53291d9d654c8dd8526fc54)
+[pellmark] Q#12 reclaimed by a
+[pellmark] Q#12 reclaimed by b
+[pellmark] Q#12 now DODGED
+[pellmark] Q#21 asked: What are the home addresses of the grant recipient
+[pellmark] Q#21 declined
+[pellmark] Q#22 asked: How much of the treasury was spent on market makin
+[pellmark] Q#22 now OPEN
+seed done

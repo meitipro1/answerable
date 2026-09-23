@@ -1,0 +1,6 @@
+# Stable tooling that matches GenLayer Studio (Studionet): GenVM py-genlayer
+# runner 1jb45aa8. genlayer-test 0.29.2 brings genlayer-py 0.16.x.
+genlayer-test==0.29.2
+genvm-linter==0.11.0
+cloudpickle
+pytest

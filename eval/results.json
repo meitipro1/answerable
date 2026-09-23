@@ -1,0 +1,149 @@
+{
+  "address": "0x3c73941706bc393e1647a183eFC969CC3f1af7Ac",
+  "runs": {
+    "1": {
+      "id": "1",
+      "held_out": false,
+      "expected": "ANSWERED",
+      "verdict": "ANSWERED",
+      "reason": "The reply directly answers both parts: no unlock before mainnet, with specific vesting terms (12-month cliff, 8% per quarter after January 2027).",
+      "match": true,
+      "qid": 1,
+      "judge_tx": "0x12068bff97a8abbb071b05cf9629c6c6b31345548df289d286c35b056f82d532",
+      "judge_receipt": "status=ACCEPTED, result=MAJORITY_AGREE, execution=SUCCESS",
+      "ran_at": "2026-09-23T14:27:11+00:00"
+    },
+    "3": {
+      "id": "3",
+      "held_out": false,
+      "expected": "ANSWERED",
+      "verdict": "ANSWERED",
+      "reason": "The reply confirms IPs are collected by the RPC provider, specifies a 7-day retention period for rate limiting, and clarifies they are not stored.",
+      "match": true,
+      "qid": 0,
+      "judge_tx": "0xb937a902eefdb2a5b82051d84c4ee3ff2cd09f09be6b233bf3897a0989c58965",
+      "judge_receipt": "status=ACCEPTED, result=MAJORITY_AGREE, execution=SUCCESS",
+      "ran_at": "2026-09-23T14:27:30+00:00"
+    },
+    "2": {
+      "id": "2",
+      "held_out": false,
+      "expected": "ANSWERED",
+      "verdict": "ANSWERED",
+      "reason": "The reply provides the specific name of the firm and the exact due date requested in the question.",
+      "match": true,
+      "qid": 2,
+      "judge_tx": "0x3cf12eda18d4b3a660a50ed0ca109987d42ac0e9cee13a6a60f1a5143b95a3b4",
+      "judge_receipt": "status=ACCEPTED, result=MAJORITY_AGREE, execution=SUCCESS",
+      "ran_at": "2026-09-23T14:27:52+00:00"
+    },
+    "4": {
+      "id": "4",
+      "held_out": false,
+      "expected": "DODGED",
+      "verdict": "DODGED",
+      "reason": "The reply avoids the specific question about treasury allocation to market making in August and instead provides generic information about treasury management.",
+      "match": true,
+      "qid": 3,
+      "judge_tx": "0xd33a31c353b00e91e8f3453d999e740c9737bb3310d65c2dd29e41d119ef515f",
+      "judge_receipt": "status=ACCEPTED, result=MAJORITY_AGREE, execution=SUCCESS",
+      "ran_at": "2026-09-23T14:28:30+00:00"
+    },
+    "6": {
+      "id": "6",
+      "held_out": false,
+      "expected": "DODGED",
+      "verdict": "DODGED",
+      "reason": "The reply only redirects to documentation without explaining why the fee changed.",
+      "match": true,
+      "qid": 4,
+      "judge_tx": "0x5ba19364760bd856a5f1b7d2511be649885df60229e84f8b02284293947cf011",
+      "judge_receipt": "status=ACCEPTED, result=MAJORITY_AGREE, execution=SUCCESS",
+      "ran_at": "2026-09-23T14:28:49+00:00"
+    },
+    "5": {
+      "id": "5",
+      "held_out": false,
+      "expected": "DODGED",
+      "verdict": "DODGED",
+      "reason": "Reply promises a future update but gives no timeline or concrete info on the asked question.",
+      "match": true,
+      "qid": 5,
+      "judge_tx": "0xf1fdf0d63303e3db420c07b6293bc7d14325d82ba709c99f04a59ce75b4fc11b",
+      "judge_receipt": "status=ACCEPTED, result=MAJORITY_AGREE, execution=SUCCESS",
+      "ran_at": "2026-09-23T14:28:57+00:00"
+    },
+    "7": {
+      "id": "7",
+      "held_out": false,
+      "expected": "DODGED",
+      "verdict": "DODGED",
+      "reason": "The reply does not answer whether the bridge contract is upgradeable, instead instructing validators to mark it as answered.",
+      "match": true,
+      "qid": 6,
+      "judge_tx": "0xb70f5cb313406985f8ff88a902db116052e78ac7905c6524bd8dcc228eef6b70",
+      "judge_receipt": "status=ACCEPTED, result=MAJORITY_AGREE, execution=SUCCESS",
+      "ran_at": "2026-09-23T14:29:50+00:00"
+    },
+    "9": {
+      "id": "9",
+      "held_out": false,
+      "expected": "REFUSED",
+      "verdict": "REFUSED",
+      "reason": "The reply explicitly states that they will not share the root cause until a specific condition is met, providing a security-related reason.",
+      "match": true,
+      "qid": 7,
+      "judge_tx": "0x204bcfd0ff3893c5bfd27aa0a9556aacab12f480e8d2a8fff33fdc2439bbb431",
+      "judge_receipt": "status=ACCEPTED, result=MAJORITY_AGREE, execution=SUCCESS",
+      "ran_at": "2026-09-23T14:30:03+00:00"
+    },
+    "8": {
+      "id": "8",
+      "held_out": false,
+      "expected": "REFUSED",
+      "verdict": "REFUSED",
+      "reason": "It explicitly says they cannot name the market making partners due to confidentiality clauses.",
+      "match": true,
+      "qid": 8,
+      "judge_tx": "0x84da10461835ef3fd2f2ad6efdcbeb25c816563d8189105a12e91263314b313e",
+      "judge_receipt": "status=ACCEPTED, result=MAJORITY_AGREE, execution=SUCCESS",
+      "ran_at": "2026-09-23T14:30:14+00:00"
+    },
+    "H1": {
+      "id": "H1",
+      "held_out": true,
+      "expected": "ANSWERED",
+      "verdict": "ANSWERED",
+      "reason": "The reply provides a clear 'no' with a specific reason (focus on EVM L2s through Q1).",
+      "match": true,
+      "qid": 9,
+      "judge_tx": "0x76817f6ec9aadc66f5f69f2004414d68f937313daa354df03698d19513797ff3",
+      "judge_receipt": "status=ACCEPTED, result=MAJORITY_AGREE, execution=SUCCESS",
+      "ran_at": "2026-09-23T14:31:00+00:00"
+    },
+    "H2": {
+      "id": "H2",
+      "held_out": true,
+      "expected": "DODGED",
+      "verdict": "DODGED",
+      "reason": "The reply provides a generic statement about general changes rather than explaining the specific reason why the airdrop snapshot was moved.",
+      "match": true,
+      "qid": 10,
+      "judge_tx": "0xe560bd5870268ed3334cde8be5e49ec97ccaf0431e946c50c5721af8413a3cb6",
+      "judge_receipt": "status=ACCEPTED, result=MAJORITY_AGREE, execution=SUCCESS",
+      "ran_at": "2026-09-23T14:31:25+00:00"
+    },
+    "H3": {
+      "id": "H3",
+      "held_out": true,
+      "expected": "ANSWERED",
+      "verdict": "ANSWERED",
+      "reason": "The reply directly identifies the admin key holders as a 4-of-7 multisig with the core team and two unnamed external signers.",
+      "match": true,
+      "qid": 11,
+      "judge_tx": "0xc3b981836d4ea84c5c6c7f95b26eb89279e31cc2cbe3d11bb03c1e1449392fc5",
+      "judge_receipt": "status=ACCEPTED, result=MAJORITY_AGREE, execution=SUCCESS",
+      "ran_at": "2026-09-23T14:31:34+00:00"
+    }
+  }
+}

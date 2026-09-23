@@ -1,0 +1,14 @@
+{
+  "contract": "contracts/answerable.py",
+  "sha256": "77a0700d72c33937292e70d0728fa2d625f1e3bd823ab3ebffb5871c0e45c0d9",
+  "address": "0xe4ccB0D5e7d27a415cE072C4DA7cDEF75371Aed0",
+  "chain_id": 61997,
+  "rubric": "v1",
+  "frozen_at": "2026-09-23T01:53:07+00:00",
+  "eval": {
+    "tuned_matching": "9/9",
+    "held_out_matching": "3/3",
+    "results": "eval/results.md"
+  },
+  "note": "Recorded once the golden eval ran. Do not redeploy or change the rubric without a new eval."
+}

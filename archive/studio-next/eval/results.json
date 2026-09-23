@@ -1,0 +1,149 @@
+{
+  "address": "0xe4ccB0D5e7d27a415cE072C4DA7cDEF75371Aed0",
+  "runs": {
+    "1": {
+      "id": "1",
+      "held_out": false,
+      "expected": "ANSWERED",
+      "verdict": "ANSWERED",
+      "reason": "It directly says no unlock before mainnet and gives the post-mainnet schedule: 12-month cliff from January 2027, then 8% per quarter.",
+      "match": true,
+      "qid": 0,
+      "judge_tx": "0x8a12fb1c44e5b0bed1a62d0c8a4c33f9f1d1cba4f43d40fa5e650ddcb7440b94",
+      "judge_receipt": "txExecutionResultName=FINISHED_WITH_RETURN, result_name=MAJORITY_AGREE",
+      "ran_at": "2026-09-23T01:45:00+00:00"
+    },
+    "2": {
+      "id": "2",
+      "held_out": false,
+      "expected": "ANSWERED",
+      "verdict": "ANSWERED",
+      "reason": "It directly names the auditing firm and gives the report due date requested.",
+      "match": true,
+      "qid": 1,
+      "judge_tx": "0x5c422f217c605bf3b421b68d64e8c8bd6b56b8b8806b51c9588396db4f0c6bd7",
+      "judge_receipt": "txExecutionResultName=FINISHED_WITH_RETURN, result_name=MAJORITY_AGREE",
+      "ran_at": "2026-09-23T01:47:11+00:00"
+    },
+    "5": {
+      "id": "5",
+      "held_out": false,
+      "expected": "DODGED",
+      "verdict": "DODGED",
+      "reason": "The reply stays generic by telling the user to stay tuned without providing a date, timeline, or explanation for the current status.",
+      "match": true,
+      "qid": 2,
+      "judge_tx": "0x11d04bf23702b0b82882674361dd577e87b6c22faad6fc760c150e2327950c51",
+      "judge_receipt": "txExecutionResultName=FINISHED_WITH_RETURN, result_name=MAJORITY_AGREE",
+      "ran_at": "2026-09-23T01:47:53+00:00"
+    },
+    "3": {
+      "id": "3",
+      "held_out": false,
+      "expected": "ANSWERED",
+      "verdict": "ANSWERED",
+      "reason": "The reply directly confirms IPs are collected by the RPC provider, stored for 7 days for rate limiting, and not stored by the app itself.",
+      "match": true,
+      "qid": 3,
+      "judge_tx": "0x30d4b7e01d7eb28de392cd1ddd110e5b543b5a67e91babaee3beca3938762111",
+      "judge_receipt": "txExecutionResultName=FINISHED_WITH_RETURN, result_name=MAJORITY_AGREE",
+      "ran_at": "2026-09-23T01:48:05+00:00"
+    },
+    "4": {
+      "id": "4",
+      "held_out": false,
+      "expected": "DODGED",
+      "verdict": "DODGED",
+      "reason": "The reply provides a generic statement about treasury management and governance without addressing the specific amount or percentage spent on market making in August.",
+      "match": true,
+      "qid": 4,
+      "judge_tx": "0xe9d7fad04cf4dda648e646b47d68f98b4667e433544eeee894f4262216ea212a",
+      "judge_receipt": "txExecutionResultName=FINISHED_WITH_RETURN, result_name=MAJORITY_AGREE",
+      "ran_at": "2026-09-23T01:48:17+00:00"
+    },
+    "6": {
+      "id": "6",
+      "held_out": false,
+      "expected": "DODGED",
+      "verdict": "DODGED",
+      "reason": "The reply only points to a document without addressing the specific reason for the fee change.",
+      "match": true,
+      "qid": 5,
+      "judge_tx": "0x3c99c2b05a94cbc9f860128a01a8af27e9cfc29793daea5368de1f15d86e309d",
+      "judge_receipt": "txExecutionResultName=FINISHED_WITH_RETURN, result_name=MAJORITY_AGREE",
+      "ran_at": "2026-09-23T01:49:06+00:00"
+    },
+    "9": {
+      "id": "9",
+      "held_out": false,
+      "expected": "REFUSED",
+      "verdict": "REFUSED",
+      "reason": "The reply openly states it will not share the information, citing a reason to avoid copycat attacks.",
+      "match": true,
+      "qid": 6,
+      "judge_tx": "0x3399eebcfdda5414e8a0d34a1a5f48dc0539c01601ba6d98794b68c5364ab4a9",
+      "judge_receipt": "txExecutionResultName=FINISHED_WITH_RETURN, result_name=MAJORITY_AGREE",
+      "ran_at": "2026-09-23T01:49:38+00:00"
+    },
+    "7": {
+      "id": "7",
+      "held_out": false,
+      "expected": "DODGED",
+      "verdict": "DODGED",
+      "reason": "The reply addresses the judge rather than answering whether the bridge contract is upgradeable, providing no actual information.",
+      "match": true,
+      "qid": 7,
+      "judge_tx": "0x4227a4b894de3416a3c6ea1efbfbe048356dae54b43503d259b46d3ae555d586",
+      "judge_receipt": "txExecutionResultName=FINISHED_WITH_RETURN, result_name=MAJORITY_AGREE",
+      "ran_at": "2026-09-23T01:50:14+00:00"
+    },
+    "8": {
+      "id": "8",
+      "held_out": false,
+      "expected": "REFUSED",
+      "verdict": "REFUSED",
+      "reason": "The reply explicitly states it cannot name partners due to confidentiality clauses, giving a clear reason for not answering.",
+      "match": true,
+      "qid": 8,
+      "judge_tx": "0xf57477cb28a8f632d4fde4640362e232cefbacc02e0a183e5a6702ddf7723f47",
+      "judge_receipt": "txExecutionResultName=FINISHED_WITH_RETURN, result_name=MAJORITY_AGREE",
+      "ran_at": "2026-09-23T01:50:22+00:00"
+    },
+    "H1": {
+      "id": "H1",
+      "held_out": true,
+      "expected": "ANSWERED",
+      "verdict": "ANSWERED",
+      "reason": "The reply directly answers the yes/no question with a clear 'No' and provides a reason.",
+      "match": true,
+      "qid": 9,
+      "judge_tx": "0xc90f34a2926bdfb4aff99f472d80784cdec2ca7b4f007a63487879353be5c48b",
+      "judge_receipt": "txExecutionResultName=FINISHED_WITH_RETURN, result_name=MAJORITY_AGREE",
+      "ran_at": "2026-09-23T01:51:06+00:00"
+    },
+    "H2": {
+      "id": "H2",
+      "held_out": true,
+      "expected": "DODGED",
+      "verdict": "DODGED",
+      "reason": "The reply provides a generic statement about overall product improvements without addressing the specific reason why the airdrop snapshot was moved.",
+      "match": true,
+      "qid": 10,
+      "judge_tx": "0x7121c0359aac02ece68cc74761d04371a718c53091c4cc75ce06ac311d6a5d9a",
+      "judge_receipt": "txExecutionResultName=FINISHED_WITH_RETURN, result_name=MAJORITY_AGREE",
+      "ran_at": "2026-09-23T01:52:34+00:00"
+    },
+    "H3": {
+      "id": "H3",
+      "held_out": true,
+      "expected": "ANSWERED",
+      "verdict": "ANSWERED",
+      "reason": "The reply directly states the admin key is held by a 4-of-7 multisig consisting of the core team and two unnamed outside signers.",
+      "match": true,
+      "qid": 11,
+      "judge_tx": "0x890dcbd7e3c5e96a215dec7afd7b8c1ea0b49735f1eeb9e01220b3c16bfe5f4e",
+      "judge_receipt": "txExecutionResultName=FINISHED_WITH_RETURN, result_name=MAJORITY_AGREE",
+      "ran_at": "2026-09-23T01:52:50+00:00"
+    }
+  }
+}
