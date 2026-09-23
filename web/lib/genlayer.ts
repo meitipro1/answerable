@@ -29,18 +29,19 @@ export function readClient() {
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-function rateLimited(err: unknown): boolean {
+/** Rate limits and network blips; reads are idempotent, so both are safe to retry. */
+function transient(err: unknown): boolean {
   const msg = String((err as Error)?.message ?? err);
-  return msg.includes("-32029") || msg.includes("Rate limit") || msg.includes("429");
+  return ["-32029", "Rate limit", "429", "Failed to fetch", "fetch failed", "NetworkError", "timed out"].some((s) => msg.includes(s));
 }
 
-/** Back off and retry if the RPC rate-limits us. */
+/** Back off and retry transient read failures. */
 async function view(functionName: string, args: Args): Promise<unknown> {
   for (let attempt = 0; ; attempt++) {
     try {
       return await readClient().readContract({ address: CONTRACT, functionName, args });
     } catch (e) {
-      if (!rateLimited(e) || attempt >= 3) throw e;
+      if (!transient(e) || attempt >= 3) throw e;
       await sleep(4000 * (attempt + 1));
     }
   }
