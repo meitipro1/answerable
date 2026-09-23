@@ -10,8 +10,7 @@ export const RPC_URL = "https://studio.genlayer.com/api";
 export const EXPLORER = "https://explorer-studio.genlayer.com";
 export const EXPLORER_API = `${EXPLORER}/api`;
 export const STUDIO_URL = "https://studio.genlayer.com";
-/** Set NEXT_PUBLIC_GITHUB_URL once the repo is public; the footer hides the link until then. */
-export const GITHUB_URL = process.env.NEXT_PUBLIC_GITHUB_URL || "";
+export const GITHUB_URL = process.env.NEXT_PUBLIC_GITHUB_URL || "https://github.com/meitipro1/answerable";
 export const X_URL = "https://x.com/meitipro1";
 export const RUBRIC_URL = GITHUB_URL ? `${GITHUB_URL}/blob/main/contracts/answerable.py` : "";
 

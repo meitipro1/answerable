@@ -11,7 +11,7 @@ Answerable is a paid question desk on GenLayer. Anyone can put GEN behind a publ
 | Runtime | `py-genlayer:1jb45aa8ynh2a9c9xn3b7qqh8sm5q93hwfp7jqmwsfhh8jpz09h6`, the GenVM runner Studionet executes |
 | Rubric | v1, pinned in [`contracts/answerable.py`](contracts/answerable.py), frozen in [`contracts/FROZEN.json`](contracts/FROZEN.json) |
 | Eval | 9 of 9 tuned cases and 3 of 3 held-out cases matched under real consensus ([`eval/results.md`](eval/results.md)) |
-| Site | Next.js 16 + genlayer-js 1.1.8 in [`web/`](web) |
+| Site | Next.js 16 + genlayer-js 1.1.8 in [`web/`](web); deploy on Vercel with root directory `web` |
 
 ## How it works
 
