@@ -11,3 +11,4 @@ web/*.tsbuildinfo
 !.env.example
 *.log
 .claude/
+.vercel
