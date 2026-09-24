@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { getAddress } from "viem";
 import { CHAIN_HEX, CHAIN_ID, CHAIN_NAME, EXPLORER, RPC_URL, rpcEndpoint } from "./config";
 
 type Eip1193 = {
@@ -29,6 +30,17 @@ const WalletContext = createContext<WalletState | null>(null);
 function eth(): Eip1193 | null {
   if (typeof window === "undefined") return null;
   return ((window as unknown as { ethereum?: Eip1193 }).ethereum ?? null) as Eip1193 | null;
+}
+
+/** Wallets report lowercase addresses; Studio's faucet silently funds nothing
+ * unless the address is checksummed, so normalise once, here. */
+function checksum(addr: string | undefined): `0x${string}` | null {
+  if (!addr) return null;
+  try {
+    return getAddress(addr);
+  } catch {
+    return null;
+  }
 }
 
 async function rpc<T>(method: string, params: unknown[]): Promise<T> {
@@ -66,7 +78,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     if (!p) return;
     const onAccounts = (a: unknown) => {
       const list = a as string[];
-      setAddress((list?.[0] as `0x${string}`) ?? null);
+      setAddress(checksum(list?.[0]));
     };
     const onChain = (c: unknown) => setChainId(parseInt(String(c), 16));
     p.request({ method: "eth_accounts" }).then(onAccounts).catch(() => {});
@@ -96,7 +108,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     setConnecting(true);
     try {
       const list = (await p.request({ method: "eth_requestAccounts" })) as string[];
-      setAddress((list?.[0] as `0x${string}`) ?? null);
+      setAddress(checksum(list?.[0]));
       setChainId(parseInt(String(await p.request({ method: "eth_chainId" })), 16));
     } catch (e) {
       setError((e as Error)?.message ?? "Could not connect the wallet.");
