@@ -124,7 +124,11 @@ export default function QuestionPage() {
   if (qs.error && !q) {
     return (
       <div className="wrap section-gap">
-        <ErrorNote error={qs.error.includes("not found") ? `Question #${id} does not exist.` : qs.error} retry={qs.reload} />
+        {qs.error.includes("not found") ? (
+          <ErrorNote label="Not found" error={`Question #${id} does not exist.`} />
+        ) : (
+          <ErrorNote error={qs.error} retry={qs.reload} />
+        )}
       </div>
     );
   }

@@ -93,10 +93,10 @@ export function Empty({ children, action }: { children: ReactNode; action?: Reac
   );
 }
 
-export function ErrorNote({ error, retry }: { error: string; retry?: () => void }) {
+export function ErrorNote({ error, retry, label = "Could not read the chain" }: { error: string; retry?: () => void; label?: string }) {
   return (
     <div className="banner">
-      <span className="label">Could not read the chain</span>
+      <span className="label">{label}</span>
       <span className="small muted break" style={{ flex: 1 }}>{error}</span>
       {retry ? <button className="btn sm" onClick={retry}>Retry</button> : null}
     </div>

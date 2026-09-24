@@ -50,11 +50,22 @@ async function view(functionName: string, args: Args): Promise<unknown> {
   }
 }
 
+/** Studio reports a view that rolled back only as "execution failed", without
+ * the contract's message. For a lookup by id or address that means not found. */
+async function lookup(functionName: string, args: Args, what: string): Promise<unknown> {
+  try {
+    return await view(functionName, args);
+  } catch (e) {
+    if (String((e as Error)?.message ?? e).includes("execution failed")) throw new Error(`${what} not found`);
+    throw e;
+  }
+}
+
 export const reads = {
-  desk: async (addr: string): Promise<Desk> => toDesk(await view("get_desk", [addr])),
+  desk: async (addr: string): Promise<Desk> => toDesk(await lookup("get_desk", [addr], "desk")),
   desks: async (offset = 0, limit = 50): Promise<Page<Desk>> =>
     toPage(await view("list_desks", [offset, limit]), toDesk),
-  question: async (id: number, viewer = ""): Promise<Question> => toQuestion(await view("get_question", [id, viewer])),
+  question: async (id: number, viewer = ""): Promise<Question> => toQuestion(await lookup("get_question", [id, viewer], "question")),
   questions: async (desk: string, status: string, offset: number, limit: number, sort: "new" | "pot" | "decided") =>
     toPage(await view("list_questions", [desk, status, offset, limit, sort]), toQuestion),
 };

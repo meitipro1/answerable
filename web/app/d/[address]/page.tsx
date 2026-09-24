@@ -58,7 +58,11 @@ export default function DeskProfile() {
   if (desk.error && !desk.data) {
     return (
       <div className="wrap section-gap">
-        <ErrorNote error={desk.error.includes("not found") ? `No desk is open at ${address}.` : desk.error} retry={desk.reload} />
+        {desk.error.includes("not found") ? (
+          <ErrorNote label="Not found" error={`No desk is open at ${address}.`} />
+        ) : (
+          <ErrorNote error={desk.error} retry={desk.reload} />
+        )}
       </div>
     );
   }
