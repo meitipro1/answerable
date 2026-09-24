@@ -10,6 +10,7 @@ const sans = Outfit({ subsets: ["latin"], variable: "--font-sans" });
 const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://answerable-olive.vercel.app"),
   title: "Answerable: pay to ask, refunded if they dodge",
   description:
     "Put GEN behind a public question to a founder, a team or an expert. If the reply answers it, they keep the money. If it dodges, GenLayer validators send it back to everyone who backed it.",
